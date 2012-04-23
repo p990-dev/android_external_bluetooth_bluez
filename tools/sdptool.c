@@ -310,6 +310,8 @@ static struct uuid_def uuid16_names[] = {
 	{ 0x112e, "Phonebook Access (PBAP) - PCE", NULL, 0 },
 	{ 0x112f, "Phonebook Access (PBAP) - PSE", NULL, 0 },
 	{ 0x1130, "Phonebook Access (PBAP)", NULL, 0 },
+	{ 0x1132, "Message Access Server", NULL, 0 },
+	{ 0x1133, "Message Notification Server", NULL, 0 },
 	/* ... */
 	{ 0x1200, "PnPInformation",
 		did_attrib_names, sizeof(did_attrib_names)/sizeof(struct attrib_def) },
@@ -1963,12 +1965,12 @@ static int add_mas(sdp_session_t *session, svc_info_t *si)
 	sdp_list_t *svclass_id, *pfseq, *apseq, *root;
 	uuid_t root_uuid, ftrn_uuid, l2cap_uuid, rfcomm_uuid, obex_uuid;
 	uuid_t masid_uuid, sprtd_msg_uuid;
-	uint16_t masid;
+	uint8_t masid;
 	uint8_t  sprtd_msg;
 	sdp_profile_desc_t profile[1];
 	sdp_list_t *aproto, *proto[3];
 	sdp_record_t record;
-	uint8_t u8_val = si->channel ? si->channel : 10;
+	uint8_t u8_val = si->channel ? si->channel : 0x10;
 	sdp_data_t *channel;
 	int ret = 0;
 
@@ -2006,7 +2008,7 @@ static int add_mas(sdp_session_t *session, svc_info_t *si)
 	sdp_set_profile_descs(&record, pfseq);
 
 	masid = 0x0;
-	sdp_attr_add_new(&record, SDP_ATTR_MAS_INSTANCE_ID, SDP_UINT16,
+	sdp_attr_add_new(&record, SDP_ATTR_MAS_INSTANCE_ID, SDP_UINT8,
 							&masid);
 
 	sprtd_msg = 0x0F;
