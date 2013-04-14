@@ -52,8 +52,8 @@
 #include <utils/Log.h>
 
 #define ENABLE_DEBUG
-#define ENABLE_VERBOSE
-#define ENABLE_TIMING
+/* #define ENABLE_VERBOSE */
+/* #define ENABLE_TIMING */
 
 #define BUFFER_SIZE 2048
 
